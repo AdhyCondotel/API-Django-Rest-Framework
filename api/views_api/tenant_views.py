@@ -11,11 +11,11 @@ from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework import filters
 
 class TenantViewSet(viewsets.ModelViewSet):
-    serializer_class = TenantSerializer
+    serializer_class = TenantDetailSerializer
     queryset = Tenant.objects.all()
     pagination_class = CustomResultsSetPagination
     filter_backends = (DjangoFilterBackend, filters.SearchFilter)
-    filter_fields = ('users_id', 'delivery', 'status',)
+    filter_fields = ('users_id', 'delivery', 'status')
     search_fields = ('name',)
 
     def retrieve(self, request, *args, **kwargs):
@@ -59,3 +59,4 @@ class TenantViewSet(viewsets.ModelViewSet):
         self.perform_destroy(instance)
         return Response({"detail" : "Success","status_code": status.HTTP_204_NO_CONTENT},
             status=status.HTTP_204_NO_CONTENT)
+

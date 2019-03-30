@@ -80,7 +80,7 @@ WSGI_APPLICATION = 'ProLaundry.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'LaundryDB',
+        'NAME': 'LaundryProjectDB',
         'USER':'root',
         'PASSWORD':'admin123',
         'HOST':'/opt/lampp/var/mysql/mysql.sock',

@@ -12,11 +12,23 @@ class PriceSerializer(serializers.ModelSerializer):
         model = Price
         fields = '__all__'
 
+class UserSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = User
+        fields = ('id', 'name', 'tenant_id', 'phone', 'email', 'role', 'photo', 'created_at', 'updated_at')
+
+
+class RateSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Rate
+        fields = '__all__'
+
 
 class TenantSerializer(serializers.ModelSerializer):
     class Meta:
         model = Tenant
         fields = ('id', 'users_id', 'name', 'delivery', 'status', 'photo', 'created_at', 'updated_at')
+
 
 class TenantDetailSerializer(serializers.ModelSerializer):
     price = PriceSerializer(many=True)
@@ -24,11 +36,6 @@ class TenantDetailSerializer(serializers.ModelSerializer):
         model = Tenant
         fields = ('id', 'users_id', 'name', 'delivery', 'status', 'photo', 'price', 'created_at', 'updated_at')
 
-
-class UserSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = User
-        fields = ('id', 'name', 'phone', 'email', 'role', 'photo', 'created_at', 'updated_at')
 
 # class UserSerializer(serializers.ModelSerializer):
 #     tenant = serializers.SerializerMethodField()
@@ -41,8 +48,3 @@ class UserSerializer(serializers.ModelSerializer):
 #             return obj[0]
 #         return {}        
 
-
-class RateSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Rate
-        fields = '__all__'

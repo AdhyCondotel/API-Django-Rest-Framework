@@ -14,7 +14,7 @@ class User(models.Model):
 		return self.name
 
 class Tenant(models.Model):
-	users_id = models.ForeignKey(User, on_delete=models.CASCADE, related_name='tenant', null=True, blank=True)
+	users_id = models.OneToOneField(User, on_delete=models.CASCADE, related_name='tenant_id', null=True, blank=True)
 	name= models.CharField(max_length=100)
 	delivery = models.BooleanField()
 	status = models.BooleanField()
@@ -53,9 +53,12 @@ class Address(models.Model):
 		return self.as_alamat
 
 class Rate(models.Model):
-	tenant_id = models.ForeignKey(Tenant, on_delete=models.CASCADE, related_name='rate_tenant', null=True, blank=True)
-	user_id = models.ForeignKey(User, on_delete=models.CASCADE, related_name='rate_user', null=True, blank=True)
+	#tenant_id = models.ForeignKey(Tenant, on_delete=models.CASCADE, related_name='rate_tenant', null=True, blank=True)
+	#user_id = models.ForeignKey(User, on_delete=models.CASCADE, related_name='rate_user', null=True, blank=True)
+	#user_id = models.ManyToManyField(User)
+	tenant_id = models.ForeignKey(User, on_delete=models.CASCADE, related_name='tenant_id', null=True, blank=True)
+	tenant_id = models.ManyToManyField(Tenant)
 	count_rate = models.FloatField(null=True, blank=True, default=0.0)
-	message = models.TextField(default="", editable=False)
+	message = models.TextField(default="", editable=True)
 	created_at = models.DateTimeField(auto_now_add=True, null=True, blank=True)
 	updated_at = models.DateTimeField(auto_now=True, null=True, blank=True)
